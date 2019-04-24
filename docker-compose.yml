@@ -1,0 +1,38 @@
+version: '2'
+services:
+  pwc-nginx:
+    image: jiangliuer326442/nginx:tyouapp
+    stdin_open: true
+    entrypoint:
+    - nginx
+    - -g
+    - daemon off;
+    volumes:
+    - /home/www/nginx4/html:/usr/share/nginx/html
+    tty: true
+    links:
+    - pwc-phpfpm:phpfpm
+    ports:
+    - 80:80/tcp
+    labels:
+      io.rancher.container.pull_image: always
+  pwc-phpfpm:
+    image: jiangliuer326442/phpfpm:tyouapp
+    stdin_open: true
+    volumes:
+    - /home/www/nginx4/html:/var/www/html
+    tty: true
+    links:
+    - pwc-mysql:mysql
+    labels:
+      io.rancher.container.pull_image: always
+  pwc-mysql:
+    image: jiangliuer326442/mysql:tyouapp
+    environment:
+      MYSQL_ROOT_PASSWORD: loveclub123
+    stdin_open: true
+    tty: true
+    ports:
+    - 3306:3306/tcp
+    labels:
+      io.rancher.container.pull_image: always
