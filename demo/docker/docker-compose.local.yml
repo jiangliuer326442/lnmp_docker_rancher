@@ -1,0 +1,28 @@
+version: '3'
+services:
+  task:
+    image: syngit.txxcd.com:4567/docker/php-runner:debug
+    container_name: task
+    environment:
+      - APP_ENV=local
+      - APP_NAME=task
+      - MELO\SERVERS\USER=http://tianyou.test:33000
+    extra_hosts:
+      - tianyou.test:192.168.0.210
+    dns:
+      - 192.168.0.100
+      - 10.8.1.1
+      - 223.5.5.5
+    volumes:
+      - ../:/var/www/html
+      - ./pm2/apps.json:/etc/pm2/apps.json
+      - ./supervisor/config-sync.ini:/etc/supervisor.d/config-sync.ini
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./crontab/root:/etc/crontabs/root
+    ports:
+      - 39001:80
+    privileged: true
+networks:
+  default:
+    external:
+      name: srv_network

@@ -1,0 +1,2 @@
+#docker定时任务增加到这里
+*/1 * * * * php /var/www/html/cli.php request_uri=/cron/test > /tmp/out.txt

@@ -1,0 +1,18 @@
+{
+  "apps": [
+    {
+      "name"       : "job_test",
+      "script"     : "cli.php",
+      "exec_interpreter": "php",
+      "cwd": "/var/www/html",
+      "args" : [
+        "request_uri=/job/test"
+      ],
+      "exec_mode"  : "fork_mode",
+      "instances"  : 2,
+      "max_memory_restart": "100M",
+      "max_restarts": 999,
+      "restart_delay": 10000
+    }
+  ]
+}
